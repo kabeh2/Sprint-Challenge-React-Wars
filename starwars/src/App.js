@@ -34,17 +34,12 @@ const App = () => {
     fetchData();
   }, []);
 
-  // const a = data.map((data, index) => {
-  //   return <p key={index}>{data.name}</p>;
-  // });
-
   return (
     <div className="App">
       <CssBaseline />
       <Typography variant="h1">React Wars</Typography>
       <Icon>star</Icon>
       <MediaCard data={data} />
-      {/* <MediaCard media={media1} initial={initial1} /> */}
     </div>
   );
 };
