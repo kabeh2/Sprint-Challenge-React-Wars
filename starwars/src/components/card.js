@@ -51,17 +51,11 @@ const MediaCard = props => {
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick(index) {
-    const oldData = props.data[index];
-    const newData = props.data;
-    const updatedData = { ...oldData };
+    setExpanded(!expanded);
 
-    console.log("All: " + newData);
-    console.log("Selected: " + oldData);
+    console.log("All: " + expanded);
+
     console.log("Index: " + index);
-
-    if (props.data[index] === oldData) {
-      return setExpanded(!expanded);
-    }
   }
 
   const a = props.data.map((data, index) => {
