@@ -6,6 +6,8 @@ import { Typography } from "@material-ui/core";
 import MediaCard from "./components/card";
 
 import "./App.scss";
+import NextBtn from "./components/nextBtn";
+import PrevBtn from "./components/prevBtn";
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
@@ -17,22 +19,54 @@ const App = () => {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [apiUrl, setApiUrl] = useState("https://swapi.co/api/people/");
+  const [backBtn, setBackBtn] = useState("");
+  const [nextBtn, setNextBtn] = useState("");
 
   useEffect(() => {
+    // Set up a cancellation source
+    let source = axios.CancelToken.source();
+
     setLoading(true);
     const fetchData = async () => {
       try {
-        const result = await axios.get("https://swapi.co/api/people/");
+        const result = await axios.get(apiUrl, { cancelToken: source.token });
+
         setLoading(false);
-        // console.log(result.data.results);
         setData(result.data.results);
+        setAllData(result.data);
+        setBackBtn(result.data.previous);
+        setNextBtn(result.data.next);
+
+        console.log(result.data);
       } catch (error) {
-        console.log("there was an error");
+        // Is this error because we cancelled it ourselves?
+        if (axios.isCancel(error)) {
+          console.log(`call for ${apiUrl} was cancelled`);
+        } else {
+          throw error;
+        }
       }
     };
 
     fetchData();
-  }, []);
+
+    return () => {
+      // Let's cancel the request on effect cleanup
+      source.cancel();
+    };
+  }, [apiUrl]);
+
+  const handlePrev = () => {
+    setApiUrl(backBtn);
+    console.log("New Url: " + apiUrl);
+  };
+  const handleNext = () => {
+    setApiUrl(nextBtn);
+    console.log("New Url: " + apiUrl);
+  };
+  console.log("Back: " + backBtn);
 
   return (
     <div className="App">
@@ -40,6 +74,19 @@ const App = () => {
       <Typography variant="h1">React Wars</Typography>
       <Icon>star</Icon>
       <MediaCard data={data} />
+
+      <PrevBtn
+        prev={backBtn}
+        allData={allData}
+        apiUrl={apiUrl}
+        onClick={handlePrev}
+      />
+      <NextBtn
+        next={nextBtn}
+        allData={allData}
+        apiUrl={apiUrl}
+        onClick={handleNext}
+      />
     </div>
   );
 };
