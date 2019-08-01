@@ -85,9 +85,11 @@ const Character = props => {
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{props.data.gender}</Typography>
-          <Typography paragraph>{props.data.eye_color}</Typography>
-          <Typography paragraph>{props.data.height}</Typography>
+          <Typography paragraph>{`Gender: ${props.data.gender}`}</Typography>
+          <Typography paragraph>{`Eye Color: ${
+            props.data.eye_color
+          }`}</Typography>
+          <Typography paragraph>{`Height: ${props.data.height}`}</Typography>
         </CardContent>
       </Collapse>
     </Card>
