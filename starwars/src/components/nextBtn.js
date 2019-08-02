@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from // , { useState, useEffect }
+"react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 
 const NextBtn = props => {
-  const [nextDisabled, setNextDisabled] = useState(false);
+  //   const [nextDisabled, setNextDisabled] = useState(false);
 
-  useEffect(() => {
-    // Start it off by assuming the component is still mounted
-    let mounted = true;
-    if (mounted) {
-      if (props.next === null) {
-        setNextDisabled(true);
-      } else {
-        setNextDisabled(false);
-      }
-    }
-    return () => {
-      // When cleanup is called, toggle the mounted variable to false
-      mounted = false;
-    };
-  }, [props.next, nextDisabled]);
+  //   useEffect(() => {
+  //     // Start it off by assuming the component is still mounted
+  //     let mounted = true;
+  //     if (mounted) {
+  //       if (props.next === null) {
+  //         setNextDisabled(!nextDisabled);
+  //       }
+  //     }
+  //     return () => {
+  //       // When cleanup is called, toggle the mounted variable to false
+  //       mounted = false;
+  //     };
+  //   }, [props.next, nextDisabled]);
 
   const useStyles = makeStyles(theme => ({
     button: {
@@ -44,7 +43,7 @@ const NextBtn = props => {
       variant="contained"
       color="primary"
       className={classes.button}
-      disabled={nextDisabled}
+      disabled={props.disabled}
       onClick={props.onClick}
     >
       Next

@@ -7,21 +7,9 @@ const PrevBtn = props => {
   const [prevDisabled, setPrevDisabled] = useState(false);
 
   useEffect(() => {
-    // Start it off by assuming the component is still mounted
-    let mounted = true;
-
-    if (mounted) {
-      if (props.prev === null) {
-        setPrevDisabled(true);
-      } else {
-        setPrevDisabled(false);
-      }
+    if (props.prev === null) {
+      setPrevDisabled(!prevDisabled);
     }
-
-    return () => {
-      // When cleanup is called, toggle the mounted variable to false
-      mounted = false;
-    };
   }, [props.prev, prevDisabled]);
 
   const useStyles = makeStyles(theme => ({

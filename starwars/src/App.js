@@ -81,12 +81,24 @@ const App = () => {
         apiUrl={apiUrl}
         onClick={handlePrev}
       />
-      <NextBtn
-        next={nextBtn}
-        allData={allData}
-        apiUrl={apiUrl}
-        onClick={handleNext}
-      />
+
+      {nextBtn === null ? (
+        <NextBtn
+          next={nextBtn}
+          allData={allData}
+          apiUrl={apiUrl}
+          onClick={handleNext}
+          disabled={true}
+        />
+      ) : (
+        <NextBtn
+          next={nextBtn}
+          allData={allData}
+          apiUrl={apiUrl}
+          onClick={handleNext}
+          disabled={false}
+        />
+      )}
     </div>
   );
 };
