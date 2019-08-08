@@ -8,7 +8,9 @@ const PrevBtn = props => {
 
   useEffect(() => {
     if (props.prev === null) {
-      setPrevDisabled(!prevDisabled);
+      setPrevDisabled(true);
+    } else {
+      setPrevDisabled(false);
     }
   }, [props.prev, prevDisabled]);
 
